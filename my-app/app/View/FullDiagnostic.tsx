@@ -25,10 +25,10 @@ function Navbar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => voi
       </Link>
       <div className="flex items-center gap-8">
         {[
-          { label: "Home",         href: "/"          },
-          { label: "About",        href: "/about"     },
+          { label: "Home", href: "/" },
+          { label: "About", href: "/about" },
           { label: "General Test", href: "/questions" },
-          { label: "Product",      href: "/product",  active: true },
+          { label: "Product", href: "/product", active: true },
         ].map(({ label, href, active }) => (
           <Link key={label} href={href}
             className={`text-sm font-medium transition ${active ? "text-[#f97316] border-b border-[#f97316] pb-0.5" : d ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}>
@@ -53,10 +53,10 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
   const d = dark;
 
   const features = [
-    { icon: <BarChart2 className="w-5 h-5 text-[#00ffaa]" />,  title: "Deep-dive structural audit",  desc: "Comprehensive vetting of existing codebase, workflows, and resource allocation models." },
-    { icon: <TrendingUp className="w-5 h-5 text-[#00ffaa]" />, title: "Growth roadmap (36 mo)",       desc: "A multi-year strategic trajectory tailored to your specific market positioning." },
-    { icon: <Shield className="w-5 h-5 text-[#00ffaa]" />,     title: "Compliance & Risk",            desc: "Advanced assessment against international standards and internal risk protocols." },
-    { icon: <FileText className="w-5 h-5 text-[#00ffaa]" />,   title: "Detailed Insight PDF",         desc: "Premium 40-page documentation package with actionable intelligence and charts." },
+    { icon: <BarChart2 className="w-5 h-5 text-[#00ffaa]" />, title: "Deep-dive structural audit", desc: "Comprehensive vetting of existing codebase, workflows, and resource allocation models." },
+    { icon: <TrendingUp className="w-5 h-5 text-[#00ffaa]" />, title: "Growth roadmap (36 mo)", desc: "A multi-year strategic trajectory tailored to your specific market positioning." },
+    { icon: <Shield className="w-5 h-5 text-[#00ffaa]" />, title: "Compliance & Risk", desc: "Advanced assessment against international standards and internal risk protocols." },
+    { icon: <FileText className="w-5 h-5 text-[#00ffaa]" />, title: "Detailed Insight PDF", desc: "Premium 40-page documentation package with actionable intelligence and charts." },
   ];
 
   return (
@@ -114,7 +114,7 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
             <div className={`absolute bottom-6 left-6 right-6 rounded-2xl p-5 border ${d ? "bg-[#0d1117]/95 border-white/10" : "bg-white/95 border-gray-200 shadow-lg"}`}>
               <div className="flex items-center gap-2 mb-2">
                 <div className="flex -space-x-1">
-                  {[1,2].map((i) => (
+                  {[1, 2].map((i) => (
                     <div key={i} className="w-7 h-7 rounded-full bg-gray-600 border-2 border-[#0d1117]" />
                   ))}
                 </div>
@@ -141,8 +141,8 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
           <div className="col-span-3 grid grid-cols-3 gap-6">
             {[
               { label: "Resource Efficiency", sub: "Industry Average: 64%", pct: 64, color: "#f97316" },
-              { label: "Growth Potential",    sub: "Top Decile: 88%",        pct: 88, color: "#00ffaa" },
-              { label: "Compliance Readiness",sub: "Global Standard: 70%",  pct: 70, color: "#3b82f6" },
+              { label: "Growth Potential", sub: "Top Decile: 88%", pct: 88, color: "#00ffaa" },
+              { label: "Compliance Readiness", sub: "Global Standard: 70%", pct: 70, color: "#3b82f6" },
             ].map(({ label, sub, pct, color }) => (
               <div key={label}>
                 <div className={`h-1 rounded-full mb-3 ${d ? "bg-white/10" : "bg-gray-200"}`}>
@@ -161,7 +161,7 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <p className={`text-sm font-bold ${d ? "text-white" : "text-gray-900"}`}>PICA</p>
           <div className="flex items-center gap-8">
-            {["Privacy Policy","Terms of Service","Security Audit","Contact Support"].map((item) => (
+            {["Privacy Policy", "Terms of Service", "Security Audit", "Contact Support"].map((item) => (
               <Link key={item} href="#" className={`text-xs transition hover:opacity-70 ${d ? "text-gray-400" : "text-gray-500"}`}>{item}</Link>
             ))}
           </div>
@@ -183,24 +183,24 @@ function CheckoutPage({ dark, setDark, onSuccess }: { dark: boolean; setDark: (v
   const [expiry, setExpiry] = useState("");
   const [cvv, setCvv] = useState("");
 
-  const formatCard = (v: string) => v.replace(/\D/g,"").slice(0,16).replace(/(.{4})/g,"$1 ").trim();
+  const formatCard = (v: string) => v.replace(/\D/g, "").slice(0, 16).replace(/(.{4})/g, "$1 ").trim();
   const formatExpiry = (v: string) => {
-    const clean = v.replace(/\D/g,"").slice(0,4);
-    return clean.length > 2 ? `${clean.slice(0,2)} / ${clean.slice(2)}` : clean;
+    const clean = v.replace(/\D/g, "").slice(0, 4);
+    return clean.length > 2 ? `${clean.slice(0, 2)} / ${clean.slice(2)}` : clean;
   };
 
   const methodTabs: { key: PaymentMethod; label: string; icon: React.ReactNode }[] = [
-    { key: "credit",   label: "Credit Card",    icon: <CreditCard className="w-4 h-4" /> },
-    { key: "bank",     label: "Bank Transfer",  icon: <Building2 className="w-4 h-4" /> },
-    { key: "opay",     label: "OPay",           icon: <span className="text-xs font-bold">O</span> },
-    { key: "paystack", label: "Paystack",       icon: <span className="text-xs font-bold">P</span> },
+    { key: "credit", label: "Credit Card", icon: <CreditCard className="w-4 h-4" /> },
+    { key: "bank", label: "Bank Transfer", icon: <Building2 className="w-4 h-4" /> },
+    { key: "opay", label: "OPay", icon: <span className="text-xs font-bold">O</span> },
+    { key: "paystack", label: "Paystack", icon: <span className="text-xs font-bold">P</span> },
   ];
 
   const features = [
-    { title: "Deep-dive structural audit",   desc: "Complete architectural review of your organization's digital workflow."        },
-    { title: "Growth roadmap (36 mo)",       desc: "Mathematical projection and strategy for the next 3 years of scaling."        },
-    { title: "Compliance & Risk",            desc: "Proactive identification of architectural bottlenecks and legal risks."        },
-    { title: "Detailed Insight PDF",         desc: "120+ page executive summary with actionable intelligence."                    },
+    { title: "Deep-dive structural audit", desc: "Complete architectural review of your organization's digital workflow." },
+    { title: "Growth roadmap (36 mo)", desc: "Mathematical projection and strategy for the next 3 years of scaling." },
+    { title: "Compliance & Risk", desc: "Proactive identification of architectural bottlenecks and legal risks." },
+    { title: "Detailed Insight PDF", desc: "120+ page executive summary with actionable intelligence." },
   ];
 
   return (
@@ -243,11 +243,10 @@ function CheckoutPage({ dark, setDark, onSuccess }: { dark: boolean; setDark: (v
           <div className={`flex rounded-xl overflow-hidden border mb-6 ${d ? "border-white/10 bg-[#0d1117]" : "border-gray-200 bg-white"}`}>
             {methodTabs.map(({ key, label, icon }) => (
               <button key={key} onClick={() => setMethod(key)}
-                className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-semibold transition ${
-                  method === key
+                className={`flex-1 flex flex-col items-center gap-1 py-3 text-xs font-semibold transition ${method === key
                     ? d ? "bg-[#243044] text-white" : "bg-white text-gray-900 shadow"
                     : d ? "text-gray-500 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"
-                }`}>
+                  }`}>
                 {icon}
                 {label}
               </button>
@@ -283,7 +282,7 @@ function CheckoutPage({ dark, setDark, onSuccess }: { dark: boolean; setDark: (v
                 <div>
                   <label className={`text-xs font-bold uppercase tracking-widest block mb-2 ${d ? "text-gray-400" : "text-gray-500"}`}>CVC / CVV</label>
                   <input type="text" placeholder="•••" maxLength={4} value={cvv}
-                    onChange={(e) => setCvv(e.target.value.replace(/\D/g,"").slice(0,4))}
+                    onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))}
                     className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition ${d ? "bg-[#0d1117] border-white/10 text-white placeholder-gray-600 focus:border-[#00ffaa]/50" : "bg-white border-gray-200 text-gray-900 focus:border-teal-400"}`} />
                 </div>
               </div>
@@ -314,9 +313,9 @@ function CheckoutPage({ dark, setDark, onSuccess }: { dark: boolean; setDark: (v
           {/* Trust badges */}
           <div className="grid grid-cols-3 gap-3 mt-6">
             {[
-              { icon: <Shield className="w-5 h-5 text-blue-400" />,   label: "PCI DSS\nCompliant"     },
-              { icon: <CheckCircle className="w-5 h-5 text-green-400" />, label: "Verified\nSecure"    },
-              { icon: <RefreshCw className="w-5 h-5 text-orange-400" />, label: "No Hassle\nRefund"    },
+              { icon: <Shield className="w-5 h-5 text-blue-400" />, label: "PCI DSS\nCompliant" },
+              { icon: <CheckCircle className="w-5 h-5 text-green-400" />, label: "Verified\nSecure" },
+              { icon: <RefreshCw className="w-5 h-5 text-orange-400" />, label: "No Hassle\nRefund" },
             ].map(({ icon, label }) => (
               <div key={label} className={`flex flex-col items-center gap-1.5 py-3 rounded-xl ${d ? "bg-[#0d1117] border border-white/10" : "bg-white border border-gray-200"}`}>
                 {icon}
@@ -332,7 +331,7 @@ function CheckoutPage({ dark, setDark, onSuccess }: { dark: boolean; setDark: (v
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <p className={`text-xs ${d ? "text-gray-500" : "text-gray-400"}`}>© 2024 PICA Clinical Architect. Secure Encrypted Payment.</p>
           <div className="flex items-center gap-6">
-            {["Privacy Policy","Terms of Service","Security Standards"].map((item) => (
+            {["Privacy Policy", "Terms of Service", "Security Standards"].map((item) => (
               <Link key={item} href="#" className={`text-xs hover:opacity-70 transition ${d ? "text-gray-400" : "text-gray-500"}`}>{item}</Link>
             ))}
           </div>
@@ -347,10 +346,10 @@ function PaymentSuccessPage({ dark, setDark }: { dark: boolean; setDark: (v: boo
   const d = dark;
 
   const capabilities = [
-    { icon: <Shield className="w-5 h-5 text-[#00ffaa]" />,   title: "Deep-dive structural audit",  desc: "Comprehensive analysis of core infrastructure."               },
-    { icon: <TrendingUp className="w-5 h-5 text-[#00ffaa]" />,title: "Growth roadmap (36 mo)",     desc: "Strategic milestones and scaling projections."                },
-    { icon: <Shield className="w-5 h-5 text-[#00ffaa]" />,   title: "Compliance & Risk",            desc: "Real-time monitoring and mitigation paths."                   },
-    { icon: <FileText className="w-5 h-5 text-[#00ffaa]" />, title: "Detailed Insight PDF",         desc: "Weekly analytical exports for stakeholders."                  },
+    { icon: <Shield className="w-5 h-5 text-[#00ffaa]" />, title: "Deep-dive structural audit", desc: "Comprehensive analysis of core infrastructure." },
+    { icon: <TrendingUp className="w-5 h-5 text-[#00ffaa]" />, title: "Growth roadmap (36 mo)", desc: "Strategic milestones and scaling projections." },
+    { icon: <Shield className="w-5 h-5 text-[#00ffaa]" />, title: "Compliance & Risk", desc: "Real-time monitoring and mitigation paths." },
+    { icon: <FileText className="w-5 h-5 text-[#00ffaa]" />, title: "Detailed Insight PDF", desc: "Weekly analytical exports for stakeholders." },
   ];
 
   return (
@@ -427,7 +426,7 @@ function PaymentSuccessPage({ dark, setDark }: { dark: boolean; setDark: (v: boo
             <p className={`text-xs ${d ? "text-gray-500" : "text-gray-400"}`}>© 2024 Intelligence Unit. All rights reserved.</p>
           </div>
           <div className="flex items-center gap-8">
-            {["Privacy Policy","Terms of Service","Compliance Audit","Contact Support"].map((item) => (
+            {["Privacy Policy", "Terms of Service", "Compliance Audit", "Contact Support"].map((item) => (
               <Link key={item} href="#" className={`text-xs hover:opacity-70 transition ${d ? "text-gray-400" : "text-gray-500"}`}>{item}</Link>
             ))}
           </div>
@@ -442,8 +441,8 @@ export default function FullDiagnosticFlow() {
   const [dark, setDark] = useState(true);
   const [screen, setScreen] = useState<"product" | "checkout" | "success">("product");
 
-  if (screen === "product")  return <FullDiagnosticPage dark={dark} setDark={setDark} onCheckout={() => setScreen("checkout")} />;
+  if (screen === "product") return <FullDiagnosticPage dark={dark} setDark={setDark} onCheckout={() => setScreen("checkout")} />;
   if (screen === "checkout") return <CheckoutPage dark={dark} setDark={setDark} onSuccess={() => setScreen("success")} />;
-  if (screen === "success")  return <PaymentSuccessPage dark={dark} setDark={setDark} />;
+  if (screen === "success") return <PaymentSuccessPage dark={dark} setDark={setDark} />;
   return null;
 }

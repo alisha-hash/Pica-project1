@@ -112,7 +112,7 @@ export default function HomePage() {
             <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Layer 01</p>
             <h3 className={`text-lg font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>Free Scan</h3>
             <ul className="space-y-2 mb-6">
-              {["15-Minute Audit","Top-Level Health Score","Top 3 Risk Factors"].map((item) => (
+              {["15-Minute Audit", "Top-Level Health Score", "Top 3 Risk Factors"].map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm text-gray-400">
                   <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" />{item}
                 </li>
@@ -129,7 +129,7 @@ export default function HomePage() {
             <p className="text-xs text-teal-400 font-semibold uppercase tracking-wider mb-1">Layer 02</p>
             <h3 className="text-lg font-bold text-white mb-4">Full Diagnostic</h3>
             <ul className="space-y-2 mb-6">
-              {["Complete 7-Pillar Review","Gap Analysis Report","Priority Roadmap"].map((item) => (
+              {["Complete 7-Pillar Review", "Gap Analysis Report", "Priority Roadmap"].map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm text-gray-300">
                   <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" />{item}
                 </li>
@@ -145,7 +145,7 @@ export default function HomePage() {
             <p className="text-xs text-teal-400 font-semibold uppercase tracking-wider mb-1">Layer 03</p>
             <h3 className={`text-lg font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>Intelligence</h3>
             <ul className="space-y-2 mb-6">
-              {["Monthly Deep Dives","Competitor Intelligence","Board-Level Dashboards"].map((item) => (
+              {["Monthly Deep Dives", "Competitor Intelligence", "Board-Level Dashboards"].map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm text-gray-400">
                   <CheckCircle className="w-4 h-4 text-teal-400 flex-shrink-0" />{item}
                 </li>
@@ -172,13 +172,13 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-4 gap-6">
             {[
-              { icon: <Users className="w-6 h-6 text-teal-400" />,      label: "Leadership & People"   },
-              { icon: <Briefcase className="w-6 h-6 text-teal-400" />,  label: "Business Model"        },
-              { icon: <ShoppingCart className="w-6 h-6 text-teal-400"/>,label: "Customer Acquisition"  },
-              { icon: <DollarSign className="w-6 h-6 text-teal-400" />, label: "Financial Health"      },
-              { icon: <Settings className="w-6 h-6 text-teal-400" />,   label: "Operations"            },
-              { icon: <Shield className="w-6 h-6 text-teal-400" />,     label: "Legal & Compliance"    },
-              { icon: <MapPin className="w-6 h-6 text-teal-400" />,     label: "Product-Market Fit"    },
+              { icon: <Users className="w-6 h-6 text-teal-400" />, label: "Leadership & People" },
+              { icon: <Briefcase className="w-6 h-6 text-teal-400" />, label: "Business Model" },
+              { icon: <ShoppingCart className="w-6 h-6 text-teal-400" />, label: "Customer Acquisition" },
+              { icon: <DollarSign className="w-6 h-6 text-teal-400" />, label: "Financial Health" },
+              { icon: <Settings className="w-6 h-6 text-teal-400" />, label: "Operations" },
+              { icon: <Shield className="w-6 h-6 text-teal-400" />, label: "Legal & Compliance" },
+              { icon: <MapPin className="w-6 h-6 text-teal-400" />, label: "Product-Market Fit" },
             ].map(({ icon, label }) => (
               <div key={label} className={`flex flex-col items-center gap-3 p-5 rounded-2xl border text-center transition hover:border-teal-500/50 ${d ? "bg-[#161b22] border-white/10" : "bg-gray-50 border-gray-200"}`}>
                 {icon}

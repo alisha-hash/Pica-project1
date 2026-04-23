@@ -27,13 +27,11 @@ export default function Navbar({
 
   return (
     <nav
-      className={`${
-        isFixed ? "fixed top-0 left-0 right-0 z-50" : ""
-      } flex items-center justify-between px-8 py-1 border-b ${
-        d
+      className={`${isFixed ? "fixed top-0 left-0 right-0 z-50" : ""
+        } flex items-center justify-between px-8 py-1 border-b ${d
           ? "bg-[#0d1117]/90 border-white/10 backdrop-blur"
           : "bg-white/90 border-gray-200 backdrop-blur"
-      }`}
+        }`}
     >
       <Link href="/" className="flex items-center">
         <Image
@@ -50,13 +48,12 @@ export default function Navbar({
           <Link
             key={label}
             href={href}
-            className={`text-sm font-medium transition ${
-              active
+            className={`text-sm font-medium transition ${active
                 ? "text-teal-400"
                 : d
                   ? "text-gray-300 hover:text-white"
                   : "text-gray-600 hover:text-gray-900"
-            }`}
+              }`}
           >
             {label}
           </Link>
@@ -66,11 +63,10 @@ export default function Navbar({
       <div className="flex items-center gap-3">
         <button
           onClick={() => setDark(!d)}
-          className={`p-2 rounded-full transition ${
-            d
+          className={`p-2 rounded-full transition ${d
               ? "bg-white/10 text-white hover:bg-white/20"
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-          }`}
+            }`}
         >
           {d ? (
             <Sun className="w-4 h-4" />
@@ -80,11 +76,10 @@ export default function Navbar({
         </button>
         <Link
           href="/auth/login"
-          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-            d
+          className={`px-4 py-2 rounded-lg text-sm font-medium transition ${d
               ? "text-white hover:bg-white/10"
               : "text-gray-700 hover:bg-gray-100"
-          }`}
+            }`}
         >
           Login
         </Link>
