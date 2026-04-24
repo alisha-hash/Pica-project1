@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useTheme } from "@/components/ThemeContext";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import {
   AlertCircle,
   HelpCircle,
@@ -22,26 +21,19 @@ import {
 } from "lucide-react";
 
 export default function AboutPage() {
-  const [dark, setDark] = useState(true);
+  const { dark } = useTheme();
   const d = dark;
-
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/pages/about", active: true },
-    { label: "Pricing", href: "/pages/pricing" },
-  ];
 
   return (
     <div className={d ? "bg-[#0d1117] text-white" : "bg-white text-gray-900"}>
-      <Navbar dark={dark} setDark={setDark} navItems={navItems} isFixed={true} />
 
       {/* ── Hero ── */}
-      <section className={`relative pt-32 pb-20 px-8 overflow-hidden ${d ? "bg-[#0d1117]" : "bg-gray-50"}`}>
+      <section className={`relative pt-20 md:pt-32 pb-12 md:pb-20 px-4 sm:px-6 md:px-8 overflow-hidden ${d ? "bg-[#0d1117]" : "bg-gray-50"}`}>
         {d && <div className="absolute top-20 right-1/4 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />}
-        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <p className="text-xs font-semibold tracking-widest text-teal-400 uppercase mb-4">Architectural Intelligence</p>
-            <h1 className="text-5xl font-extrabold leading-tight mb-6">
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
               We Help Businesses<br />
               Understand Themselves<br />
               Before They Try to<br />
@@ -74,7 +66,7 @@ export default function AboutPage() {
       </section>
 
       {/* ── Misdiagnosis Section ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
         <div className="max-w-7xl mx-auto">
           <h2 className={`text-3xl font-bold mb-3 ${d ? "text-white" : "text-gray-900"}`}>
             Most Businesses Are Not Broken —<br />They Are Misdiagnosed
@@ -82,7 +74,7 @@ export default function AboutPage() {
           <p className={`text-sm mb-12 ${d ? "text-gray-400" : "text-gray-600"}`}>
             Growth failure is rarely a lack of effort; it's a lack of clarity in the initial assessment.
           </p>
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
               { icon: <AlertCircle className="w-7 h-7 text-teal-400" />, title: "Misdiagnosis", desc: "Treating symptoms (low sales) instead of the root cause (market misalignment or poor operations)." },
               { icon: <HelpCircle className="w-7 h-7 text-teal-400" />, title: "Guesswork Decisions", desc: "Relying on 'gut feeling' in complex scaling environments leads to expensive structural dials." },
@@ -99,13 +91,13 @@ export default function AboutPage() {
       </section>
 
       {/* ── Quote Section ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
         <div className="max-w-4xl mx-auto text-center">
-          <blockquote className={`text-4xl font-extrabold italic leading-tight mb-8 ${d ? "text-white" : "text-gray-900"}`}>
+          <blockquote className={`text-2xl md:text-4xl font-extrabold italic leading-tight mb-8 ${d ? "text-white" : "text-gray-900"}`}>
             "You cannot fix what you<br />
             cannot <span className="text-[#f97316] not-italic">see.</span>"
           </blockquote>
-          <div className="flex items-center justify-center gap-12">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 md:gap-12">
             <div className="text-center">
               <div className="w-8 h-8 rounded-full bg-[#f97316] flex items-center justify-center text-white text-xs font-bold mx-auto mb-2">01</div>
               <p className={`text-xs font-semibold uppercase tracking-widest ${d ? "text-gray-400" : "text-gray-600"}`}>Clarity Before Strategy</p>
@@ -120,12 +112,12 @@ export default function AboutPage() {
       </section>
 
       {/* ── PICA Ecosystem ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
         <div className="max-w-7xl mx-auto text-center mb-12">
           <h2 className={`text-3xl font-bold mb-3 ${d ? "text-white" : "text-gray-900"}`}>The PICA Ecosystem</h2>
           <p className={`text-sm ${d ? "text-gray-400" : "text-gray-600"}`}>A unified framework that transforms raw business energy into structured intelligence.</p>
         </div>
-        <div className="max-w-4xl mx-auto grid grid-cols-4 gap-4">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { letter: "P", color: "text-[#f97316]", title: "Pain-point",      desc: "Isolating the core friction points that drain resources and energy." },
             { letter: "I", color: "text-[#f97316]", title: "Identification",  desc: "Pinpointing the structural root causes within the business architecture." },
@@ -134,7 +126,7 @@ export default function AboutPage() {
           ].map(({ letter, color, title, desc }, i) => (
             <div key={letter} className="flex items-start gap-2">
               <div className={`flex-1 p-5 rounded-2xl border text-center ${d ? "bg-[#161b22] border-white/10" : "bg-gray-50 border-gray-200"}`}>
-                <p className={`text-4xl font-extrabold mb-2 ${color}`}>{letter}</p>
+                <p className={`text-2xl md:text-4xl font-extrabold mb-2 ${color}`}>{letter}</p>
                 <p className={`text-sm font-bold mb-2 ${d ? "text-white" : "text-gray-900"}`}>{title}</p>
                 <p className={`text-xs leading-relaxed ${d ? "text-gray-400" : "text-gray-600"}`}>{desc}</p>
               </div>
@@ -145,8 +137,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── 3-Layer Intelligence Model ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
-        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-16 items-center">
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
             <h2 className={`text-3xl font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>The 3-Layer Intelligence Model</h2>
             <p className={`text-sm leading-relaxed mb-8 ${d ? "text-gray-400" : "text-gray-600"}`}>
@@ -185,11 +177,11 @@ export default function AboutPage() {
       </section>
 
       {/* ── 7 Pillars of Business Logic ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
         <div className="max-w-7xl mx-auto text-center mb-12">
           <h2 className={`text-3xl font-bold ${d ? "text-white" : "text-gray-900"}`}>The 7 Pillars of Business Logic</h2>
         </div>
-        <div className="max-w-5xl mx-auto flex justify-between gap-4">
+        <div className="max-w-5xl mx-auto flex flex-wrap justify-center gap-4 md:gap-6">
           {[
             { icon: <Users className="w-6 h-6 text-teal-400" />,       label: "Leadership"  },
             { icon: <DollarSign className="w-6 h-6 text-teal-400" />,  label: "Finance"     },
@@ -208,10 +200,10 @@ export default function AboutPage() {
       </section>
 
       {/* ── Path to Clarity ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
         <div className="max-w-7xl mx-auto">
           <h2 className={`text-3xl font-bold mb-12 ${d ? "text-white" : "text-gray-900"}`}>The Path to Clarity</h2>
-          <div className="grid grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { step: "1. Take Assessment",  desc: "A 15-minute precision inquiry into your current operations."                          },
               { step: "2. Get Scored",       desc: "Our engine evaluates your data against the 7-pillar framework."                       },
@@ -231,8 +223,8 @@ export default function AboutPage() {
       </section>
 
       {/* ── Business Types ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
-        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-8">
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           {[
             {
               title: "Small Businesses",
@@ -264,9 +256,9 @@ export default function AboutPage() {
       </section>
 
       {/* ── Built on Structured Logic ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 gap-16 items-start mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start mb-12">
             <div>
               <h2 className={`text-3xl font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>Built on Structured Logic, Not Hype</h2>
               <p className={`text-sm leading-relaxed ${d ? "text-gray-400" : "text-gray-600"}`}>
@@ -286,7 +278,7 @@ export default function AboutPage() {
           </div>
 
           {/* Testimonials */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {[
               { quote: "PICA revealed that our marketing wasn't failing—our operations couldn't support the leads. We fired the foundation and doubled revenue in 6 months.", name: "Amara Okafor" },
               { quote: "The clarity PICA provided was jarring but necessary. We were building on sand. Today, every decision we make is backed by the 3-Layer model.", name: "Kofi Mensah" },
@@ -306,22 +298,22 @@ export default function AboutPage() {
       </section>
 
       {/* ── CTA ── */}
-      <section className={`py-20 px-8 text-center ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 text-center ${d ? "bg-[#0d1117]" : "bg-white"}`}>
         <div className="max-w-3xl mx-auto">
-          <h2 className={`text-4xl font-extrabold mb-4 ${d ? "text-white" : "text-gray-900"}`}>
+          <h2 className={`text-2xl md:text-4xl font-extrabold mb-4 ${d ? "text-white" : "text-gray-900"}`}>
             Understand your business before<br />you try to grow it.
           </h2>
           <p className={`text-sm mb-8 ${d ? "text-gray-400" : "text-gray-600"}`}>
             The diagnostic assessment takes 15 minutes. The clarity it provides lasts a lifetime.
           </p>
-          <Link href="/questions" className="inline-block px-8 py-4 rounded-xl bg-[#f97316] hover:bg-[#ea6c0a] text-white text-sm font-bold transition">
+          <Link href="/questions" className="inline-block px-4 sm:px-6 md:px-8 py-4 rounded-xl bg-[#f97316] hover:bg-[#ea6c0a] text-white text-sm font-bold transition">
             Start Your Free Assessment
           </Link>
         </div>
       </section>
 
       {/* ── Footer ── */}
-      <footer className={`py-8 px-8 border-t text-center text-xs ${d ? "bg-[#0d1117] border-white/10 text-gray-500" : "bg-white border-gray-200 text-gray-400"}`}>
+      <footer className={`py-8 px-4 sm:px-6 md:px-8 border-t text-center text-xs ${d ? "bg-[#0d1117] border-white/10 text-gray-500" : "bg-white border-gray-200 text-gray-400"}`}>
         © Beauvision 2024. All rights reserved. Powered by{" "}
         <a href="https://sundimension.com" target="_blank" rel="noopener noreferrer" className="underline hover:text-teal-400 transition">SunDimension</a>
       </footer>

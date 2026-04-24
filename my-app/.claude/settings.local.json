@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(find C:/Users/PreshCodes/Documents/Pica/pica-project/my-app -maxdepth 2 -type f \\\\\\(-name *.md -o -name *.env* -o -name *.config.* \\\\\\))"
+      "Bash(find C:/Users/PreshCodes/Documents/Pica/pica-project/my-app -maxdepth 2 -type f \\\\\\(-name *.md -o -name *.env* -o -name *.config.* \\\\\\))",
+      "Bash(npx next:*)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

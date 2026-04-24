@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useTheme } from "@/components/ThemeContext";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import {
   ArrowRight,
   Timer,
@@ -12,28 +11,21 @@ import {
 } from "lucide-react";
 
 export default function FreeScanPage() {
-  const [dark, setDark] = useState(true);
+  const { dark } = useTheme();
   const d = dark;
-
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Pricing", href: "/pricing" },
-  ];
 
   return (
     <div className={`min-h-screen ${d ? "bg-[#111111] text-white" : "bg-white text-gray-900"}`}>
-      <Navbar dark={dark} setDark={setDark} navItems={navItems} isFixed={false} />
 
       {/* ── Hero ── */}
-      <section className={`px-8 py-16 ${d ? "bg-[#111111]" : "bg-gray-50"}`}>
-        <div className="max-w-6xl mx-auto grid grid-cols-2 gap-12 items-center">
+      <section className={`px-4 sm:px-6 md:px-8 py-10 md:py-16 ${d ? "bg-[#111111]" : "bg-gray-50"}`}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-center">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f97316]/20 text-[#f97316] text-xs font-semibold uppercase tracking-wider mb-6">
               <span className="w-2 h-2 rounded-full bg-[#f97316]" />
               Free Individual Plan
             </div>
-            <h1 className="text-5xl font-extrabold leading-tight mb-6">
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
               Awareness 1A:<br />
               The First Step to<br />
               <span className="text-[#f97316]">Clarity.</span>
@@ -66,14 +58,14 @@ export default function FreeScanPage() {
       </section>
 
       {/* ── Quick Scan Toolkit ── */}
-      <section className={`px-8 py-16 ${d ? "bg-[#1a1a1a]" : "bg-gray-100"}`}>
+      <section className={`px-4 sm:px-6 md:px-8 py-10 md:py-16 ${d ? "bg-[#1a1a1a]" : "bg-gray-100"}`}>
         <div className="max-w-6xl mx-auto">
-          <h2 className={`text-3xl font-bold mb-2 ${d ? "text-white" : "text-gray-900"}`}>The Quick Scan Toolkit</h2>
+          <h2 className={`text-2xl md:text-3xl font-bold mb-2 ${d ? "text-white" : "text-gray-900"}`}>The Quick Scan Toolkit</h2>
           <p className={`text-sm mb-10 ${d ? "text-gray-400" : "text-gray-600"}`}>Essential diagnostics for the modern architect.</p>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
             {/* 15-Minute Express Audit card */}
-            <div className={`rounded-2xl p-8 border ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
+            <div className={`rounded-2xl p-5 md:p-8 border ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
               <div className="w-10 h-10 rounded-xl bg-[#00ffaa]/20 flex items-center justify-center mb-6">
                 <Timer className="w-5 h-5 text-[#00ffaa]" />
               </div>
@@ -84,9 +76,9 @@ export default function FreeScanPage() {
             </div>
 
             {/* Health Score metric card */}
-            <div className="rounded-2xl p-8 bg-[#00ffaa] flex flex-col items-center justify-center text-center">
+            <div className="rounded-2xl p-5 md:p-8 bg-[#00ffaa] flex flex-col items-center justify-center text-center">
               <p className="text-xs font-bold uppercase tracking-widest text-gray-800 mb-4">Current Metric</p>
-              <p className="text-8xl font-extrabold text-gray-900 leading-none mb-2">84</p>
+              <p className="text-5xl md:text-8xl font-extrabold text-gray-900 leading-none mb-2">84</p>
               <p className="text-xl font-bold text-gray-900 mb-3">Health Score</p>
               <p className="text-xs text-gray-700 max-w-xs">
                 A singular, authoritative metric reflecting your overall alignment with the Clinical Architect Framework.
@@ -97,11 +89,11 @@ export default function FreeScanPage() {
       </section>
 
       {/* ── Risk Priority Matrix + Report Overview ── */}
-      <section className={`px-8 py-16 ${d ? "bg-[#1a1a1a]" : "bg-gray-100"}`}>
-        <div className="max-w-6xl mx-auto grid grid-cols-2 gap-6">
+      <section className={`px-4 sm:px-6 md:px-8 py-10 md:py-16 ${d ? "bg-[#1a1a1a]" : "bg-gray-100"}`}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
 
           {/* Risk Priority Matrix */}
-          <div className={`rounded-2xl p-6 border ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
+          <div className={`rounded-2xl p-4 md:p-6 border ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
             <div className="flex items-center gap-2 mb-5">
               <AlertTriangle className="w-4 h-4 text-[#00ffaa]" />
               <p className="text-sm font-bold text-[#00ffaa]">Risk Priority Matrix</p>
@@ -124,7 +116,7 @@ export default function FreeScanPage() {
           </div>
 
           {/* Report Overview */}
-          <div className={`rounded-2xl p-6 border ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
+          <div className={`rounded-2xl p-4 md:p-6 border ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
             <h3 className={`text-xl font-bold mb-2 ${d ? "text-white" : "text-gray-900"}`}>Report Overview</h3>
             <p className={`text-sm leading-relaxed mb-4 ${d ? "text-gray-400" : "text-gray-600"}`}>
               A distilled, executive summary delivered directly to your dashboard. Clean typography for effortless consumption.
@@ -149,9 +141,9 @@ export default function FreeScanPage() {
       </section>
 
       {/* ── CTA Section ── */}
-      <section className={`px-8 py-20 text-center ${d ? "bg-[#111111]" : "bg-white"}`}>
+      <section className={`px-4 sm:px-6 md:px-8 py-12 md:py-20 text-center ${d ? "bg-[#111111]" : "bg-white"}`}>
         <div className="max-w-2xl mx-auto">
-          <h2 className={`text-4xl font-extrabold mb-4 ${d ? "text-white" : "text-gray-900"}`}>
+          <h2 className={`text-2xl md:text-4xl font-extrabold mb-4 ${d ? "text-white" : "text-gray-900"}`}>
             Ready for a Clinical Appraisal?
           </h2>
           <p className={`text-sm mb-10 ${d ? "text-gray-400" : "text-gray-600"}`}>
@@ -174,10 +166,10 @@ export default function FreeScanPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className={`px-8 py-10 border-t ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
+      <footer className={`px-4 sm:px-6 md:px-8 py-10 border-t ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
         <div className="max-w-6xl mx-auto flex flex-col items-center gap-4">
           <p className={`text-sm font-bold ${d ? "text-white" : "text-gray-900"}`}>PICA</p>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
             {["Terms","Privacy","Documentation","Contact"].map((item) => (
               <Link key={item} href="#" className={`text-xs transition hover:opacity-70 ${d ? "text-gray-400" : "text-gray-500"}`}>{item}</Link>
             ))}

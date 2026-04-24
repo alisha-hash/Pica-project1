@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
+import { useTheme } from "@/components/ThemeContext";
 import Image from "next/image";
-import Navbar from "@/components/Navbar";
 import {
   Search,
   Target,
@@ -23,29 +22,22 @@ import {
 } from "lucide-react";
 
 export default function HomePage() {
-  const [dark, setDark] = useState(true);
+  const { dark } = useTheme();
 
   const d = dark;
 
-  const navItems = [
-    { label: "Home", href: "/", active: true },
-    { label: "About", href: "/pages/about" },
-    { label: "Pricing", href: "/pages/pricing" },
-  ];
-
   return (
     <div className={d ? "bg-[#0d1117] text-white" : "bg-white text-gray-900"}>
-      <Navbar dark={dark} setDark={setDark} navItems={navItems} isFixed={true} />
 
       {/* ── Hero ── */}
-      <section className={`relative pt-32 pb-20 px-8 overflow-hidden ${d ? "bg-[#0d1117]" : "bg-gray-50"}`}>
+      <section className={`relative pt-20 md:pt-32 pb-12 md:pb-20 px-4 sm:px-6 md:px-8 overflow-hidden ${d ? "bg-[#0d1117]" : "bg-gray-50"}`}>
         {/* Background glow */}
         {d && <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full bg-teal-500/10 blur-3xl pointer-events-none" />}
-        <div className="max-w-7xl mx-auto grid grid-cols-2 gap-16 items-center">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-center">
           {/* Left */}
           <div>
             <p className="text-xs font-semibold tracking-widest text-teal-400 uppercase mb-4">Precision Business Intelligence</p>
-            <h1 className="text-5xl font-extrabold leading-tight mb-6">
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-6">
               Understand<br />
               Your<br />
               Business<br />
@@ -80,17 +72,17 @@ export default function HomePage() {
       </section>
 
       {/* ── Capabilities ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
         <div className="max-w-7xl mx-auto">
           <p className="text-xs font-semibold tracking-widest text-teal-400 uppercase mb-3">Some Capabilities</p>
-          <h2 className={`text-3xl font-bold mb-12 ${d ? "text-white" : "text-gray-900"}`}>Comprehensive Diagnostics for Businesses</h2>
-          <div className="grid grid-cols-3 gap-8">
+          <h2 className={`text-2xl md:text-3xl font-bold mb-12 ${d ? "text-white" : "text-gray-900"}`}>Comprehensive Diagnostics for Businesses</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {[
               { icon: <Search className="w-6 h-6 text-teal-400" />, title: "Blind Spot Discovery", desc: "Identify structural weaknesses in your business model that standard accounting software misses." },
               { icon: <BarChart2 className="w-6 h-6 text-teal-400" />, title: "Performance Benchmarking", desc: "Compare your KPIs against top-performing Nigerian businesses in your specific sector." },
               { icon: <Zap className="w-6 h-6 text-teal-400" />, title: "Growth Readiness", desc: "Determine if your infrastructure is truly ready for high-velocity scaling without breaking." },
             ].map(({ icon, title, desc }) => (
-              <div key={title} className={`p-6 rounded-2xl border transition hover:border-teal-500/50 ${d ? "bg-[#161b22] border-white/10" : "bg-gray-50 border-gray-200"}`}>
+              <div key={title} className={`p-4 md:p-6 rounded-2xl border transition hover:border-teal-500/50 ${d ? "bg-[#161b22] border-white/10" : "bg-gray-50 border-gray-200"}`}>
                 <div className="mb-4">{icon}</div>
                 <h3 className={`text-base font-bold mb-2 ${d ? "text-white" : "text-gray-900"}`}>{title}</h3>
                 <p className={`text-sm leading-relaxed ${d ? "text-gray-400" : "text-gray-600"}`}>{desc}</p>
@@ -101,14 +93,14 @@ export default function HomePage() {
       </section>
 
       {/* ── Three Layers ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
         <div className="max-w-7xl mx-auto text-center mb-12">
-          <h2 className={`text-3xl font-bold mb-3 ${d ? "text-white" : "text-gray-900"}`}>The Three Layers of Intelligence</h2>
+          <h2 className={`text-2xl md:text-3xl font-bold mb-3 ${d ? "text-white" : "text-gray-900"}`}>The Three Layers of Intelligence</h2>
           <p className={`text-sm ${d ? "text-gray-400" : "text-gray-600"}`}>From instant insights to deep-dive forensic analysis.</p>
         </div>
-        <div className="max-w-5xl mx-auto grid grid-cols-3 gap-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Layer 01 - Free Scan */}
-          <div className={`rounded-2xl p-6 border ${d ? "bg-[#0d1117] border-white/10" : "bg-white border-gray-200 shadow-sm"}`}>
+          <div className={`rounded-2xl p-4 md:p-6 border ${d ? "bg-[#0d1117] border-white/10" : "bg-white border-gray-200 shadow-sm"}`}>
             <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-1">Layer 01</p>
             <h3 className={`text-lg font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>Free Scan</h3>
             <ul className="space-y-2 mb-6">
@@ -124,7 +116,7 @@ export default function HomePage() {
           </div>
 
           {/* Layer 02 - Full Diagnostic (featured) */}
-          <div className="rounded-2xl p-6 bg-[#1a2e1a] border border-teal-500/50 relative">
+          <div className="rounded-2xl p-4 md:p-6 bg-[#1a2e1a] border border-teal-500/50 relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#f97316] text-white text-xs font-bold px-3 py-1 rounded-full">Most Popular</div>
             <p className="text-xs text-teal-400 font-semibold uppercase tracking-wider mb-1">Layer 02</p>
             <h3 className="text-lg font-bold text-white mb-4">Full Diagnostic</h3>
@@ -141,7 +133,7 @@ export default function HomePage() {
           </div>
 
           {/* Layer 03 - Intelligence */}
-          <div className={`rounded-2xl p-6 border ${d ? "bg-[#1a2e20] border-teal-800/40" : "bg-green-50 border-green-200"}`}>
+          <div className={`rounded-2xl p-4 md:p-6 border ${d ? "bg-[#1a2e20] border-teal-800/40" : "bg-green-50 border-green-200"}`}>
             <p className="text-xs text-teal-400 font-semibold uppercase tracking-wider mb-1">Layer 03</p>
             <h3 className={`text-lg font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>Intelligence</h3>
             <ul className="space-y-2 mb-6">
@@ -159,12 +151,12 @@ export default function HomePage() {
       </section>
 
       {/* ── 7 Pillars ── */}
-      <section className={`py-20 px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+      <section className={`py-12 md:py-20 px-4 sm:px-6 md:px-8 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-2 gap-16 items-start mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start mb-12">
             <div>
               <p className="text-xs font-semibold tracking-widest text-teal-400 uppercase mb-3">Structural Foundation</p>
-              <h2 className={`text-3xl font-bold ${d ? "text-white" : "text-gray-900"}`}>The 7 Pillars of Nigerian Business Resilience</h2>
+              <h2 className={`text-2xl md:text-3xl font-bold ${d ? "text-white" : "text-gray-900"}`}>The 7 Pillars of Nigerian Business Resilience</h2>
             </div>
             <p className={`text-sm leading-relaxed pt-8 ${d ? "text-gray-400" : "text-gray-600"}`}>
               Every diagnostic explores these interconnected areas to build a bulletproof operation.

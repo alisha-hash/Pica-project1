@@ -3,50 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "@/components/ThemeContext";
 import {
-  Sun, Moon, CheckCircle, BarChart2, TrendingUp,
+  CheckCircle, BarChart2, TrendingUp,
   Shield, FileText, CreditCard, Building2, Lock,
   RefreshCw, ArrowRight,
 } from "lucide-react";
-
-// ─── Shared Navbar ─────────────────────────────────────────────────────────────
-function Navbar({ dark, setDark }: { dark: boolean; setDark: (v: boolean) => void }) {
-  const d = dark;
-  return (
-    <nav className={`flex items-center justify-between px-8 py-1 border-b ${d ? "bg-[#0d1117] border-white/10" : "bg-white border-gray-200"}`}>
-      <Link href="/" className="flex items-center">
-        <Image
-          src="/images/logo.png"
-          alt="Beauvision"
-          width={120}
-          height={32}
-          className="h-auto"
-        />
-      </Link>
-      <div className="flex items-center gap-8">
-        {[
-          { label: "Home", href: "/" },
-          { label: "About", href: "/about" },
-          { label: "General Test", href: "/questions" },
-          { label: "Product", href: "/product", active: true },
-        ].map(({ label, href, active }) => (
-          <Link key={label} href={href}
-            className={`text-sm font-medium transition ${active ? "text-[#f97316] border-b border-[#f97316] pb-0.5" : d ? "text-gray-300 hover:text-white" : "text-gray-600 hover:text-gray-900"}`}>
-            {label}
-          </Link>
-        ))}
-      </div>
-      <div className="flex items-center gap-3">
-        <button onClick={() => setDark(!d)} className={`p-2 rounded-full transition ${d ? "bg-white/10 text-white hover:bg-white/20" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}>
-          {d ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </button>
-        <Link href="/auth/signup" className="px-5 py-2 rounded-lg text-sm font-semibold bg-[#f97316] hover:bg-[#ea6c0a] text-white transition">
-          Get Started
-        </Link>
-      </div>
-    </nav>
-  );
-}
 
 // ─── Page 1: Full Diagnostic ───────────────────────────────────────────────────
 function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setDark: (v: boolean) => void; onCheckout: () => void }) {
@@ -61,17 +23,16 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
 
   return (
     <div className={`min-h-screen ${d ? "bg-[#0d1117] text-white" : "bg-white text-gray-900"}`}>
-      <Navbar dark={dark} setDark={setDark} />
 
       {/* ── Hero ── */}
-      <section className={`px-12 py-16 ${d ? "bg-[#0d1117]" : "bg-gray-50"}`}>
-        <div className="max-w-6xl mx-auto grid grid-cols-2 gap-16 items-start">
+      <section className={`px-4 sm:px-6 md:px-12 py-10 md:py-16 ${d ? "bg-[#0d1117]" : "bg-gray-50"}`}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 items-start">
           {/* Left */}
           <div>
             <div className="inline-flex items-center px-3 py-1 rounded-md border border-[#f97316]/40 text-[#f97316] text-xs font-bold uppercase tracking-widest mb-6">
               Full Diagnostic
             </div>
-            <h1 className="text-5xl font-extrabold leading-tight mb-4">
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
               Layer 02<br />
               <span className="text-[#f97316]">Full Diagnostic</span>
             </h1>
@@ -79,16 +40,16 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
               A clinical analysis of your architectural infrastructure. We identify bottlenecks, hidden risks, and untapped scalability vectors before they impact your growth.
             </p>
             <div className="mb-8">
-              <span className="text-5xl font-extrabold text-white">$249</span>
+              <span className="text-3xl md:text-5xl font-extrabold text-white">$249</span>
               <span className={`text-sm ml-2 uppercase tracking-widest ${d ? "text-gray-500" : "text-gray-400"}`}>/ Yearly</span>
             </div>
             <button onClick={onCheckout}
-              className="px-8 py-4 rounded-xl bg-[#f97316] hover:bg-[#ea6c0a] text-white text-sm font-bold transition mb-10">
+              className="px-4 sm:px-6 md:px-8 py-4 rounded-xl bg-[#f97316] hover:bg-[#ea6c0a] text-white text-sm font-bold transition mb-10">
               Get Diagnostic
             </button>
 
             {/* Feature cards */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {features.map(({ icon, title, desc }) => (
                 <div key={title} className={`p-5 rounded-2xl border-l-2 border-[#00ffaa] ${d ? "bg-[#161b22]" : "bg-gray-50"}`}>
                   <div className="mb-3">{icon}</div>
@@ -129,8 +90,8 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
       </section>
 
       {/* ── Methodology ── */}
-      <section className={`px-12 py-16 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
-        <div className="max-w-6xl mx-auto grid grid-cols-4 gap-8 items-start">
+      <section className={`px-4 sm:px-6 md:px-12 py-10 md:py-16 ${d ? "bg-[#0d1117]" : "bg-white"}`}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 md:gap-8 items-start">
           <div className="col-span-1">
             <p className="text-xs font-bold uppercase tracking-widest text-[#00ffaa] mb-3">Methodology</p>
             <h2 className={`text-2xl font-bold mb-4 ${d ? "text-white" : "text-gray-900"}`}>Quantitative Intelligence</h2>
@@ -138,7 +99,7 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
               Our proprietary diagnostic engine processes over 150 data points per architectural node, delivering a risk-score that is 4x more accurate than traditional manual audits.
             </p>
           </div>
-          <div className="col-span-3 grid grid-cols-3 gap-6">
+          <div className="col-span-1 lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { label: "Resource Efficiency", sub: "Industry Average: 64%", pct: 64, color: "#f97316" },
               { label: "Growth Potential", sub: "Top Decile: 88%", pct: 88, color: "#00ffaa" },
@@ -157,10 +118,10 @@ function FullDiagnosticPage({ dark, setDark, onCheckout }: { dark: boolean; setD
       </section>
 
       {/* ── Footer ── */}
-      <footer className={`px-8 py-8 border-t ${d ? "bg-[#0d1117] border-white/10" : "bg-white border-gray-200"}`}>
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+      <footer className={`px-4 sm:px-6 md:px-8 py-8 border-t ${d ? "bg-[#0d1117] border-white/10" : "bg-white border-gray-200"}`}>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <p className={`text-sm font-bold ${d ? "text-white" : "text-gray-900"}`}>PICA</p>
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 md:gap-8">
             {["Privacy Policy", "Terms of Service", "Security Audit", "Contact Support"].map((item) => (
               <Link key={item} href="#" className={`text-xs transition hover:opacity-70 ${d ? "text-gray-400" : "text-gray-500"}`}>{item}</Link>
             ))}
@@ -205,17 +166,16 @@ function CheckoutPage({ dark, setDark, onSuccess }: { dark: boolean; setDark: (v
 
   return (
     <div className={`min-h-screen ${d ? "bg-[#0d1117] text-white" : "bg-white text-gray-900"}`}>
-      <Navbar dark={dark} setDark={setDark} />
 
-      <div className="max-w-5xl mx-auto px-8 py-12 grid grid-cols-2 gap-12">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 py-8 md:py-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
         {/* Left — Plan summary */}
         <div>
           <p className="text-xs font-bold uppercase tracking-widest text-[#00ffaa] mb-4">Selected Subscription</p>
-          <h1 className={`text-4xl font-extrabold leading-tight mb-3 ${d ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl md:text-4xl font-extrabold leading-tight mb-3 ${d ? "text-white" : "text-gray-900"}`}>
             Layer 02 Full<br />Diagnostic
           </h1>
           <div className="mb-8">
-            <span className="text-4xl font-extrabold text-[#00ffaa]">$249</span>
+            <span className="text-2xl md:text-4xl font-extrabold text-[#00ffaa]">$249</span>
             <span className={`text-sm ml-2 ${d ? "text-gray-400" : "text-gray-500"}`}>/ yearly</span>
           </div>
 
@@ -354,7 +314,6 @@ function PaymentSuccessPage({ dark, setDark }: { dark: boolean; setDark: (v: boo
 
   return (
     <div className={`min-h-screen flex flex-col ${d ? "bg-[#0d1117] text-white" : "bg-white text-gray-900"}`}>
-      <Navbar dark={dark} setDark={setDark} />
 
       <div className="flex-1 flex flex-col items-center px-8 py-16">
         {/* Success icon */}
@@ -438,7 +397,7 @@ function PaymentSuccessPage({ dark, setDark }: { dark: boolean; setDark: (v: boo
 
 // ─── Main Export ───────────────────────────────────────────────────────────────
 export default function FullDiagnosticFlow() {
-  const [dark, setDark] = useState(true);
+  const { dark, setDark } = useTheme();
   const [screen, setScreen] = useState<"product" | "checkout" | "success">("product");
 
   if (screen === "product") return <FullDiagnosticPage dark={dark} setDark={setDark} onCheckout={() => setScreen("checkout")} />;

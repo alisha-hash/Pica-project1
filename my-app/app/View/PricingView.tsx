@@ -2,31 +2,24 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Navbar from "@/components/Navbar";
+import { useTheme } from "@/components/ThemeContext";
 import { CheckCircle, Globe, Shield } from "lucide-react";
 
 export default function PricingPage() {
-  const [dark, setDark] = useState(true);
+  const { dark } = useTheme();
   const [scale, setScale] = useState<"Small Business" | "Medium Business">("Small Business");
   const d = dark;
 
-  const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/pages/about" },
-    { label: "Pricing", href: "/pages/pricing", active: true },
-  ];
-
   return (
     <div className={`min-h-screen ${d ? "bg-[#111111] text-white" : "bg-white text-gray-900"}`}>
-      <Navbar dark={dark} setDark={setDark} navItems={navItems} isFixed={false} />
 
       {/* ── Hero ── */}
-      <section className={`px-8 py-16 ${d ? "bg-[#111111]" : "bg-gray-50"}`}>
+      <section className={`px-4 sm:px-6 md:px-8 py-10 md:py-16 ${d ? "bg-[#111111]" : "bg-gray-50"}`}>
         <div className="max-w-6xl mx-auto">
           <div className="inline-flex items-center px-3 py-1 rounded-md border border-white/20 text-xs font-semibold uppercase tracking-widest text-gray-300 mb-6">
             Strategic Intelligence
           </div>
-          <h1 className="text-5xl font-extrabold leading-tight mb-4 max-w-xl">
+          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4 max-w-xl">
             Architectural Pricing for<br />
             <span className="text-[#00ffaa]">African Enterprise.</span>
           </h1>
@@ -54,13 +47,13 @@ export default function PricingPage() {
       </section>
 
       {/* ── Pricing Cards ── */}
-      <section className={`px-8 pb-20 ${d ? "bg-[#111111]" : "bg-gray-50"}`}>
-        <div className="max-w-6xl mx-auto grid grid-cols-3 gap-6 items-start">
-
+      <section className={`px-4 sm:px-6 md:px-8 pb-20 ${d ? "bg-[#111111]" : "bg-gray-50"}`}>
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 items-start">
+  
           {/* Layer 01 — Free Scan */}
           <div className={`rounded-2xl p-8 border ${d ? "bg-[#1a2535] border-white/10" : "bg-white border-gray-200 shadow-sm"}`}>
             <p className={`text-xs font-semibold uppercase tracking-widest mb-2 ${d ? "text-gray-400" : "text-gray-500"}`}>Layer 01</p>
-            <h3 className={`text-3xl font-extrabold mb-6 ${d ? "text-white" : "text-gray-900"}`}>Free Scan</h3>
+            <h3 className={`text-2xl md:text-3xl font-extrabold mb-6 ${d ? "text-white" : "text-gray-900"}`}>Free Scan</h3>
             <ul className="space-y-3 mb-10">
               {["Core business health check","Focus: < 10 Employees","Basic PDF Performance Summary"].map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm text-gray-400">
@@ -79,9 +72,9 @@ export default function PricingPage() {
               Most Selected
             </div>
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Layer 02</p>
-            <h3 className="text-3xl font-extrabold text-white mb-4">Full Diagnostic</h3>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4">Full Diagnostic</h3>
             <div className="mb-6">
-              <span className="text-5xl font-extrabold text-white">$249</span>
+              <span className="text-3xl md:text-5xl font-extrabold text-white">$249</span>
               <span className="text-sm text-gray-400 ml-1">/ yearly</span>
             </div>
             <ul className="space-y-3 mb-8">
@@ -99,9 +92,9 @@ export default function PricingPage() {
           {/* Layer 03 — Intelligence */}
           <div className="rounded-2xl p-8 bg-[#2a3520] border border-[#4a6030]/40">
             <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Layer 03</p>
-            <h3 className="text-3xl font-extrabold text-white mb-4">Intelligence</h3>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-white mb-4">Intelligence</h3>
             <div className="mb-6">
-              <span className="text-5xl font-extrabold text-white">$1,200</span>
+              <span className="text-3xl md:text-5xl font-extrabold text-white">$1,200</span>
               <span className="text-sm text-gray-400 ml-1">/ yearly</span>
             </div>
             <ul className="space-y-3 mb-8">
@@ -119,10 +112,10 @@ export default function PricingPage() {
       </section>
 
       {/* ── PICA Advantage ── */}
-      <section className={`px-8 py-16 ${d ? "bg-[#111111]" : "bg-white"}`}>
+      <section className={`px-4 sm:px-6 md:px-8 py-10 md:py-16 ${d ? "bg-[#111111]" : "bg-white"}`}>
         <div className="max-w-6xl mx-auto">
-          <div className={`rounded-2xl p-10 border ${d ? "bg-[#161b22] border-white/10" : "bg-gray-50 border-gray-200"}`}>
-            <div className="grid grid-cols-2 gap-12">
+          <div className={`rounded-2xl p-5 md:p-10border ${d ? "bg-[#161b22] border-white/10" : "bg-gray-50 border-gray-200"}`}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
               {/* Left */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-widest text-[#00ffaa] mb-3">The PICA Advantage</p>
@@ -156,7 +149,7 @@ export default function PricingPage() {
               </div>
 
               {/* Right — Stats grid */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   { value: "94%",    label: "Accuracy in Predictive Scaling"  },
                   { value: "12k+",   label: "Enterprises Audited"             },
@@ -175,10 +168,10 @@ export default function PricingPage() {
       </section>
 
       {/* ── Footer ── */}
-      <footer className={`px-8 py-8 border-t ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
+      <footer className={`px-4 sm:px-6 md:px-8 py-8 border-t ${d ? "bg-[#111111] border-white/10" : "bg-white border-gray-200"}`}>
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <p className={`text-sm font-bold ${d ? "text-white" : "text-gray-900"}`}>PICA</p>
-          <div className="flex items-center gap-8">
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-8">
             {["Privacy Policy","Terms of Service","Contact Support","Documentation"].map((item) => (
               <Link key={item} href="#" className={`text-xs transition hover:opacity-70 ${d ? "text-gray-400" : "text-gray-500"}`}>{item}</Link>
             ))}
