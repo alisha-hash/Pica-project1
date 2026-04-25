@@ -3,6 +3,8 @@ import prisma from '../../Config/db';
 import AppError from '../../service/shared/appError';
 import { CONFLICT, NOT_FOUND, UNPROCESSABLE_CONTENT } from '../../service/shared/http';
 import { computePhase1Scoring } from '../scoring/scoring.service';
+import { generatePhase1PDF } from '../../service/shared/pdf.service';
+import { sendReportEmail } from '../../service/shared/email.service';
 import type {
   AnswerAssessmentInput,
   StartAssessmentInput,
@@ -165,79 +167,117 @@ export async function answerAssessmentService(
 export async function submitAssessmentService(
   sessionId: string
 ): Promise<SubmitAssessmentResponse> {
-  return prisma.$transaction(async (tx) => {
-    const session = await tx.assessmentSession.findUnique({
-      where: { id: sessionId },
-      select: {
-        id: true,
-        status: true,
-      },
-    });
+  const transactionResult = await prisma.$transaction(
+    async (tx) => {
+      const session = await tx.assessmentSession.findUnique({
+        where: { id: sessionId },
+        select: {
+          id: true,
+          status: true,
+          businessName: true,
+          leadEmail: true,
+        },
+      });
 
-    if (!session) {
-      throw new AppError('Assessment session not found', NOT_FOUND);
+      if (!session) {
+        throw new AppError('Assessment session not found', NOT_FOUND);
+      }
+
+      if (session.status !== SessionStatus.IN_PROGRESS) {
+        throw new AppError('Assessment session has already been submitted', CONFLICT);
+      }
+
+      const [answeredQuestions, totalQuestions] = await Promise.all([
+        tx.sessionResponse.count({
+          where: { sessionId },
+        }),
+        phase1QuestionCount(tx),
+      ]);
+
+      if (answeredQuestions !== totalQuestions) {
+        throw new AppError(
+          `Assessment is incomplete. Answer all ${totalQuestions} questions before submitting.`,
+          UNPROCESSABLE_CONTENT
+        );
+      }
+
+      await tx.assessmentSession.update({
+        where: { id: sessionId },
+        data: {
+          status: SessionStatus.COMPLETED,
+          completedAt: new Date(),
+        },
+      });
+
+      const result = await computePhase1Scoring(tx, sessionId);
+
+      await tx.sessionResult.create({
+        data: {
+          sessionId,
+          totalScore: new Prisma.Decimal(result.totalScore),
+          colorBand: result.colorBand,
+          hasAnyKnockout: result.hasAnyKnockout,
+          knockoutQuestionIds: JSON.parse(JSON.stringify(result.knockoutQuestionIds)),
+          insightPayload: JSON.parse(JSON.stringify(result)),
+        },
+        select: {
+          id: true,
+        },
+      });
+
+      await tx.sessionPillarScore.createMany({
+        data: result.pillarScores.map((pillarScore) => ({
+          sessionId,
+          pillarId: pillarScore.pillarId,
+          rawScore: pillarScore.rawScore,
+          maxPossibleScore: pillarScore.maxPossibleScore,
+          weightedScore: new Prisma.Decimal(pillarScore.weightedScore),
+          hasKnockout: pillarScore.hasKnockout,
+          colorBand: pillarScore.colorBand,
+          insightRuleApplied: pillarScore.insightRuleApplied,
+          findings: JSON.parse(JSON.stringify(pillarScore.findings)),
+        })),
+      });
+
+      return {
+        session,
+        result,
+      };
+    },
+    {
+      timeout: 30000, // 30 seconds - allows time for complex scoring computation
+    }
+  );
+
+  // After computePhase1Scoring resolves, generate PDF and send email
+  try {
+    const pdfBuffer = await generatePhase1PDF(
+      transactionResult.result,
+      transactionResult.session.businessName
+    );
+
+    // TODO: Update with actual PDF URL from storage service
+    const reportPdfUrl = `${process.env.APP_URL || 'https://pica.beauvision.com'}/reports/${sessionId}`;
+
+    if (!transactionResult.session.leadEmail) {
+      throw new Error('Lead email is missing');
     }
 
-    if (session.status !== SessionStatus.IN_PROGRESS) {
-      throw new AppError('Assessment session has already been submitted', CONFLICT);
-    }
-
-    const [answeredQuestions, totalQuestions] = await Promise.all([
-      tx.sessionResponse.count({
-        where: { sessionId },
-      }),
-      phase1QuestionCount(tx),
-    ]);
-
-    if (answeredQuestions !== totalQuestions) {
-      throw new AppError(
-        `Assessment is incomplete. Answer all ${totalQuestions} questions before submitting.`,
-        UNPROCESSABLE_CONTENT
-      );
-    }
-
-    await tx.assessmentSession.update({
-      where: { id: sessionId },
-      data: {
-        status: SessionStatus.COMPLETED,
-        completedAt: new Date(),
-      },
+    await sendReportEmail({
+      toEmail: transactionResult.session.leadEmail,
+      businessName: transactionResult.session.businessName,
+      pdfBuffer,
+      reportPdfUrl,
     });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error occurred';
+    console.error('Error generating PDF or sending report email:', message);
+    // Continue without throwing - assessment is already submitted
+  }
 
-    const result = await computePhase1Scoring(tx, sessionId);
-
-    await tx.sessionResult.create({
-      data: {
-        sessionId,
-        totalScore: new Prisma.Decimal(result.totalScore),
-        colorBand: result.colorBand,
-        hasAnyKnockout: result.hasAnyKnockout,
-        knockoutQuestionIds: result.knockoutQuestionIds,
-        insightPayload: result,
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    await tx.sessionPillarScore.createMany({
-      data: result.pillarScores.map((pillarScore) => ({
-        sessionId,
-        pillarId: pillarScore.pillarId,
-        rawScore: pillarScore.rawScore,
-        maxPossibleScore: pillarScore.maxPossibleScore,
-        weightedScore: new Prisma.Decimal(pillarScore.weightedScore),
-        hasKnockout: pillarScore.hasKnockout,
-        colorBand: pillarScore.colorBand,
-        insightRuleApplied: pillarScore.insightRuleApplied,
-        findings: pillarScore.findings,
-      })),
-    });
-
-    return {
-      message: 'Assessment submitted successfully',
-      sessionId: session.id,
-      redirectTo: '/result-gate',
-    };
-  });
+  return {
+    message: 'Assessment submitted successfully',
+    sessionId: transactionResult.session.id,
+    redirectTo: '/result-gate',
+  };
 }

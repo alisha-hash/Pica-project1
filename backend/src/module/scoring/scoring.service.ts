@@ -9,6 +9,8 @@ type Phase1QuestionRecord = {
   displayOrder: number;
   pillar: {
     weight: Prisma.Decimal;
+    name: string;
+    code: string;
   };
   options: Array<{
     score: number;
@@ -149,6 +151,8 @@ export async function computePhase1Scoring(
         pillar: {
           select: {
             weight: true,
+            name: true,
+            code: true,
           },
         },
         options: {
@@ -211,6 +215,8 @@ export async function computePhase1Scoring(
   const questionMaxScoreById = new Map<string, number>();
   const pillarQuestions = new Map<string, Phase1QuestionRecord[]>();
   const pillarWeightById = new Map<string, number>();
+  const pillarNameById = new Map<string, string>();
+  const pillarCodeById = new Map<string, string>();
 
   for (const question of phaseQuestions) {
     // Max score = highest scoring option for this question
@@ -222,10 +228,12 @@ export async function computePhase1Scoring(
     existing.push(question);
     pillarQuestions.set(question.pillarId, existing);
 
-    // Store pillar weight — only set once per pillar (all questions
-    // in the same pillar share the same weight)
+    // Store pillar metadata — only set once per pillar (all questions
+    // in the same pillar share the same weight, name, and code)
     if (!pillarWeightById.has(question.pillarId)) {
       pillarWeightById.set(question.pillarId, Number(question.pillar.weight));
+      pillarNameById.set(question.pillarId, question.pillar.name);
+      pillarCodeById.set(question.pillarId, question.pillar.code);
     }
   }
 
@@ -298,6 +306,8 @@ export async function computePhase1Scoring(
 
     pillarScores.push({
       pillarId,
+      pillarName: pillarNameById.get(pillarId) ?? 'Unknown Pillar',
+      pillarCode: pillarCodeById.get(pillarId) ?? 'XX',
       rawScore,
       maxPossibleScore,
       weightedScore,
