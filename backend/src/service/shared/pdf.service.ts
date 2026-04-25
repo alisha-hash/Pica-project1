@@ -93,7 +93,11 @@ const roundedRect = (
 };
 
 /** Draws a horizontal rule across the full page width. */
-const hr = (doc: PDFKit.PDFDocument, y: number, color: string = COLORS.borderGrey) => {
+const hr = (
+  doc: InstanceType<typeof PDFDocument>,
+  y: number,
+  color: string = COLORS.borderGrey
+) => {
   doc
     .save()
     .moveTo(PAGE_MARGIN, y)
